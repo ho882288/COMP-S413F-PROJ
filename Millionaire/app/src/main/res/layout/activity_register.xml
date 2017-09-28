@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.kin.millionaire.register"
+    android:weightSum="1">
+
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="25dp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:text="Register a new account" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter new username"
+        android:layout_marginBottom="18dp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="234dp"
+        android:layout_weight="0.06" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.06"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter new password"
+        android:layout_marginBottom="18dp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="234dp" />
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.06"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Re-enter password"
+        android:layout_marginBottom="18dp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="234dp" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:onClick="movetoregister"
+        android:text="Register" />
+
+
+</LinearLayout>
