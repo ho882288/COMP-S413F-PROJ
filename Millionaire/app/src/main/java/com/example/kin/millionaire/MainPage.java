@@ -26,7 +26,7 @@ import java.net.URLEncoder;
 
 
 public class MainPage extends AppCompatActivity {
-    Button logout,chagepw;
+    Button logout,chagepw,displaymillion;
     String name;
     TextView textView2;
     String type = "display";
@@ -55,6 +55,18 @@ public class MainPage extends AppCompatActivity {
             //On click function
             public void onClick(View w) {
                 Intent in = new Intent (MainPage.this,Changepassword.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username",name);
+                in.putExtras(bundle);
+                startActivity(in);
+            }
+        });
+        displaymillion=(Button)findViewById(R.id.button3);
+        displaymillion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            //On click function
+            public void onClick(View w) {
+                Intent in = new Intent (MainPage.this,Displaymillion.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username",name);
                 in.putExtras(bundle);
