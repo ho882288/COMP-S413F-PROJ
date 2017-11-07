@@ -52,7 +52,7 @@ public class Displaymillion extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String type = params[0];
-            String displaymillion_url = "http://10.0.2.2/ranking.php";
+            String displaymillion_url = "https://leungwaikin.000webhostapp.com/ranking.php";
 
             if (type.equals("displaymillion")) {
                 try {

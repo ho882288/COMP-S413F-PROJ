@@ -26,11 +26,12 @@ import java.net.URLEncoder;
 
 
 public class MainPage extends AppCompatActivity {
-    Button logout,chagepw,displaymillion;
+    Button logout,chagepw,displaymillion,btn4;
     String name;
     TextView textView2;
     String type = "display";
-    String t1;
+    String score ="1000000";
+    String t1="20000";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,17 @@ public class MainPage extends AppCompatActivity {
             }
         });
         new localBackgroundWorker(MainPage.this).execute(type,name);
+        btn4=(Button)findViewById(R.id.button4);
+        btn4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            //On click function
+            public void onClick(View w) {
+                type="submittestone";
+                BackgroundWorker background = new BackgroundWorker(MainPage.this);  //  if correct button
+                background.execute(type,name,score);
+            }
+        });
+
     }
     private class localBackgroundWorker extends AsyncTask<String,Void,String> {
         Context context;
@@ -83,7 +95,7 @@ public class MainPage extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String type = params[0];
-            String displayrecord_url="http://10.0.2.2/displayrecord2.php";
+            String displayrecord_url="https://leungwaikin.000webhostapp.com/displayrecord2.php";
 
             if(type.equals("display")){
                 try {

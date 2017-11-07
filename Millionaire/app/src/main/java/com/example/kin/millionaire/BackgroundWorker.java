@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,7 +25,7 @@ import java.net.URLEncoder;
 
 public class BackgroundWorker extends AsyncTask<String,Void,String> {
     Context context;
-    AlertDialog alertDialog;
+    //AlertDialog alertDialog;
     String passingname="";
     BackgroundWorker (Context ctx) {
         context=ctx;
@@ -32,13 +33,13 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_url="http://10.0.2.2/login2.php";
-        String register_url="http://10.0.2.2/register2.php";
-        String chnagepassword_url="http://10.0.2.2/changepassword2.php";//192.168.1.104 ,192.168.111.1 , 10.0.2.2,192.168.24.1
-        String testone_url="http://10.0.2.2/updatelatestone.php";
+        String login_url="https://leungwaikin.000webhostapp.com/login2.php";
+        String register_url="https://leungwaikin.000webhostapp.com/register2.php";
+        String chnagepassword_url="https://leungwaikin.000webhostapp.com/changepassword2.php";//192.168.1.104 ,192.168.111.1 , 10.0.2.2,192.168.24.1
+        String testone_url="https://leungwaikin.000webhostapp.com/updatelatestone2.php";
 
-        String displayrecord_url="http://10.0.2.2/displayrecord2.php";
-
+        String displayrecord_url="https://leungwaikin.000webhostapp.com/displayrecord2.php";
+        https://leungwaikin.000webhostapp.com
         if (type.equals("login")){
             try {
                 URL url = new URL(login_url);
@@ -147,7 +148,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             } catch(IOException e){
                 e.printStackTrace();
             }
-        }/*else if(type.equals("submittestone")){
+        }else if(type.equals("submittestone")){
             try {
                 URL url = new URL(testone_url);
                 String username = params[1];
@@ -183,7 +184,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
             } catch(IOException e){
                 e.printStackTrace();
             }
-        }*/else if(type.equals("display")){
+        }else if(type.equals("display")){
             try {
                 URL url = new URL(displayrecord_url);
                 String username = params[1];
@@ -237,22 +238,24 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute() {
 
-        alertDialog= new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Status");
+        //alertDialog= new AlertDialog.Builder(context).create();
+        //alertDialog.setTitle("Status");
 
     }
     @Override
     protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+        //alertDialog.setMessage(result);
+        //alertDialog.show();
         if (result.contains("Login not")){
+            Toast.makeText(context,"Information not match. Try again", Toast.LENGTH_SHORT).show();
             context.startActivity(new Intent(context,MainActivity.class));
         }else if (result.contains("Insert not")) {
+            Toast.makeText(context,"Username has beem used. Try another", Toast.LENGTH_SHORT).show();
             context.startActivity(new Intent(context, register.class));
         }else if (result.contains("Update not")){
-
+            Toast.makeText(context,"Fail to change password. Try again later", Toast.LENGTH_SHORT).show();
         }else if (result.contains("Update")){
-
+            Toast.makeText(context,"Password has been changed", Toast.LENGTH_SHORT).show();
         }else if (result.contains("test")){
 
 

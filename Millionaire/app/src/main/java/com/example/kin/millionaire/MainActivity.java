@@ -40,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"You didn't enter your password", Toast.LENGTH_SHORT).show();
                 }else{
 
-                    /*BackgroundWorker backgroundWorker = new BackgroundWorker(MainActivity.this);
-                    backgroundWorker.execute(type, name, pw);*/  // diaable login function
+                    BackgroundWorker backgroundWorker = new BackgroundWorker(MainActivity.this);
+                    backgroundWorker.execute(type, name, pw);  // diaable login function
 
                     //Temperoy use
-                    Intent in = new Intent (MainActivity.this,MainPage.class);
+                    /*Intent in = new Intent (MainActivity.this,MainPage.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("username",name);
                     in.putExtras(bundle);
-                    startActivity(in);
+                    startActivity(in);*/
 
                 }
 
