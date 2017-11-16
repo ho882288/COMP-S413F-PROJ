@@ -68,26 +68,6 @@ public class QuestionData {
         return Choices;
     }
 
-    public String getChoice1(int a){
-        String choice0 = Choices[a][0];
-        return choice0;
-    }
-
-    public String getChoice2(int a){
-        String choice1 = Choices[a][1];
-        return choice1;
-    }
-
-    public String getChoice3(int a){
-        String choice2 = Choices[a][2];
-        return choice2;
-    }
-
-    public String getChoice4(int a){
-        String choice3 = Choices[a][3];
-        return choice3;
-    }
-
     public String[] getCorrectAnswer(){
         return CorrectAnswers;
     }

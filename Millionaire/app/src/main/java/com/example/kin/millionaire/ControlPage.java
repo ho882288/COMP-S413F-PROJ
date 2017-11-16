@@ -97,7 +97,7 @@ public class ControlPage extends AppCompatActivity {
             @Override
             //On click function
             public void onClick(View w) {
-                Intent in = new Intent (ControlPage.this,MainPage.class);
+                Intent in = new Intent (ControlPage.this,QuestionActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username",name);
                 in.putExtras(bundle);

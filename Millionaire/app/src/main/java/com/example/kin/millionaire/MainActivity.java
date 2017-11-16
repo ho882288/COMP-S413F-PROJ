@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     backgroundWorker.execute(type, name, pw);  // diaable login function
 
                     //Temperoy use
-                    /*Intent in = new Intent (MainActivity.this,MainPage.class);
+                    /*Intent in = new Intent (MainActivity.this,QuestionActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("username",name);
                     in.putExtras(bundle);
