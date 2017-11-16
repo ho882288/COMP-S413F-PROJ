@@ -260,7 +260,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
 
 
         }else{
-            Intent in = new Intent (context,MainPage.class);
+            Intent in = new Intent (context,ControlPage.class);
             Bundle bundle = new Bundle();
             bundle.putString("username",passingname);
             in.putExtras(bundle);
