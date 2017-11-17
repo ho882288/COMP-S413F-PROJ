@@ -58,25 +58,26 @@
                             android:layout_weight="2.0">
 
                             <ImageButton
-                                android:id="@+id/imageButton"
+                                android:id="@+id/helper1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                app:srcCompat="@mipmap/ic_launcher_round" />
+                                android:adjustViewBounds="false"
+                                android:src="@drawable/helper1" />
 
                             <ImageButton
-                                android:id="@+id/imageButton3"
+                                android:id="@+id/helper2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                app:srcCompat="@mipmap/ic_launcher_round" />
+                                android:src="@drawable/helper2" />
 
                             <ImageButton
-                                android:id="@+id/imageButton2"
+                                android:id="@+id/helper3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                app:srcCompat="@mipmap/ic_launcher_round" />
+                                android:src="@drawable/helper3" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -167,13 +168,11 @@
                     android:layout_weight="6.0"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/giveUp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        app:srcCompat="?android:attr/actionModeCloseDrawable" />
-
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@android:drawable/ic_menu_revert" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -227,8 +226,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:clickable="false"
                         android:text="$32,000"
-                        android:clickable="false"/>
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="italic"
+                        app:buttonTint="@color/colorAccent" />
 
                     <CheckBox
                         android:id="@+id/score9"
@@ -267,8 +269,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:clickable="false"
                         android:text="$1,000"
-                        android:clickable="false"/>
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="italic"
+                        app:buttonTint="@color/colorAccent" />
 
                     <CheckBox
                         android:id="@+id/score4"

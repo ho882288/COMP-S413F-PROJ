@@ -16,7 +16,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView resultView;
     private ImageButton quit;
     private ImageButton restart;
-    private String money[] = {"0","100","200","300","500","1000","2000","4000","8000","16,000","32,000","64,000","125,000","250,000","500,000","1 MILLION"};
+
 
 
 
@@ -33,13 +33,13 @@ public class ResultActivity extends AppCompatActivity {
 
         if (extras != null) {
             String value = extras.getString("Score");
-            resultView.setText("You get $"+money[Integer.parseInt(value)]+", congratulations!!");
+            resultView.setText("You get $"+QuestionActivity.money[Integer.parseInt(value)]+", congratulations!!");
         }
 
         //return to main page
         quit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i=new Intent(ResultActivity.this, QuestionActivity.class);
+                Intent i=new Intent(ResultActivity.this, ControlPage.class);
                 startActivity(i);
             }
         });
@@ -53,4 +53,6 @@ public class ResultActivity extends AppCompatActivity {
         });
 
     }
+
+
 }

@@ -3,7 +3,9 @@ package com.example.kin.millionaire;
 /**
  * Created by Admin on 2017/11/14.
  */
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,7 @@ public class QuestionActivity extends AppCompatActivity {
     private Button buttonChoice3;
     private Button buttonChoice4;
     private CheckBox checkBox0, checkBox1, checkBox2, checkBox3 ,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,checkBox11,checkBox12,checkBox13,checkBox14;
+    static String money[] = {"0","100","200","300","500","1000","2000","4000","8000","16,000","32,000","64,000","125,000","250,000","500,000","1 MILLION"};
     private ImageButton quit;
     private ImageButton helper1, helper2, helper3;
 
@@ -50,6 +53,7 @@ public class QuestionActivity extends AppCompatActivity {
         buttonChoice2 = (Button) findViewById(R.id.Answer2);
         buttonChoice3 = (Button) findViewById(R.id.Answer3);
         buttonChoice4 = (Button) findViewById(R.id.Answer4);
+        quit = (ImageButton)findViewById((R.id.giveUp));
 
          checkBox0 = (CheckBox)findViewById(R.id.score1);
          checkBox1 = (CheckBox)findViewById(R.id.score2);
@@ -79,72 +83,53 @@ public class QuestionActivity extends AppCompatActivity {
 
         //set mc buttons activity
         buttonChoice1.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                if (buttonChoice1.getText() == answer) {
-                    score += 1;
-                    updateScoreBoard(score);
-                    Toast.makeText(QuestionActivity.this, "correct", Toast.LENGTH_SHORT).show();
-                    removeCurrentQuestion();
-                    updateQuestion();
-                } else {
-                    Toast.makeText(QuestionActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                    transitResultPage();
-                }
+                confirmDialog(0);
             }
 
         });
 
         buttonChoice2.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                if (buttonChoice2.getText() == answer) {
-                    score += 1;
-                    updateScoreBoard(score);
-                    Toast.makeText(QuestionActivity.this, "correct", Toast.LENGTH_SHORT).show();
-                    removeCurrentQuestion();
-                    updateQuestion();
-                } else {
-                    Toast.makeText(QuestionActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                    transitResultPage();
-                }
+                confirmDialog(1);
             }
 
         });
 
         buttonChoice3.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                if (buttonChoice3.getText() == answer) {
-                    score += 1;
-                    updateScoreBoard(score);
-                    Toast.makeText(QuestionActivity.this, "correct", Toast.LENGTH_SHORT).show();
-                    removeCurrentQuestion();
-                    updateQuestion();
-                } else {
-                    Toast.makeText(QuestionActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                    transitResultPage();
-                }
+                confirmDialog(2);
             }
 
         });
 
         buttonChoice4.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                if (buttonChoice4.getText() == answer) {
-                    score += 1;
-                    updateScoreBoard(score);
-                    Toast.makeText(QuestionActivity.this, "correct", Toast.LENGTH_SHORT).show();
-                    removeCurrentQuestion();
-                    updateQuestion();
-                } else {
-                    Toast.makeText(QuestionActivity.this, "wrong", Toast.LENGTH_SHORT).show();
-                    transitResultPage();
-                }
+                confirmDialog(3);
             }
 
         });
+
+        quit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                giveUpDialog(score);
+            }
+        });
+
+    }
+
+    void checkAnswer(int number){
+        String string[] = {buttonChoice1.getText().toString(), buttonChoice2.getText().toString(), buttonChoice3.getText().toString(), buttonChoice4.getText().toString()};
+
+        if ( string [number] == answer) {
+            score += 1;
+            updateScoreBoard(score);
+            resultDialog("Correct !");
+            removeCurrentQuestion();
+            updateQuestion();
+        } else {
+            resultDialog("Wrong !");
+        }
     }
 
         //update question list
@@ -152,7 +137,7 @@ public class QuestionActivity extends AppCompatActivity {
          // win message
          if(score == 15){
              Toast.makeText(QuestionActivity.this, "You win 1M!", Toast.LENGTH_SHORT).show();
-             transitResultPage();
+             transitResultPage(score);
          }else {
              //generate random question order
              Random r = new Random();
@@ -185,12 +170,80 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+    void dropToSafe(int a){
+        int temp = a;
+        if(temp <5)
+            temp = 0;
+        if(temp<10 && temp >5)
+            temp = 5;
+        else if (temp >10)
+            temp = 10;
+        transitResultPage(temp);
+    }
+
     // generate result page
-    void transitResultPage(){
+    void transitResultPage(int a){
         Intent i=new Intent(QuestionActivity.this, ResultActivity.class);
-        i.putExtra("Score", ""+score);
+        i.putExtra("Score", ""+a);
         startActivity(i);
     }
+    void resultDialog(final String a) {
+        if (a == "Correct !") {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(" ")
+                    .setMessage("Your answer is " + a)
+                    .setNegativeButton("Continue", null)
+                    .show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(" ")
+                    .setMessage("Your answer is " + a)
+                    .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dropToSafe(score);
+                        }
+                    }).show();
+        }
+    }
+
+
+    //confirm answer dialog
+    void confirmDialog(final int a) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(" ")
+                .setMessage("Is this your final answer?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkAnswer(a);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    // quit  game button
+     void giveUpDialog(final int score) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Quit game?")
+                .setMessage("Do you want to give up ? You will get $"+money[score])
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        transitResultPage(score);
+                    }
+                })
+                .setNegativeButton("cancel", null)
+                .show();
+    }
+
 
 
 }
