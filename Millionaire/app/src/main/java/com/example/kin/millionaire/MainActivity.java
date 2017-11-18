@@ -1,19 +1,13 @@
 package com.example.kin.millionaire;
 
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import static com.example.kin.millionaire.R.id.menu_about;
 
 public class MainActivity extends AppCompatActivity {
     EditText username;
@@ -65,24 +59,4 @@ public class MainActivity extends AppCompatActivity {
         Intent jumpage=new Intent(MainActivity.this,register.class);
         startActivity(jumpage);
     }
-
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater =getMenuInflater();
-        inflater.inflate(R.menu.activitiy_menu,menu);
-        return true;
-    }
-
-public boolean onOptionsItemSelected(MenuItem item){
-    switch(item.getItemId()){
-        case menu_about:
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("About");
-            builder.setMessage("This is a game called \"Who Wants to be a Millionaire\"");
-
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-    }
-
-    return super.onOptionsItemSelected(item);
-}
 }
