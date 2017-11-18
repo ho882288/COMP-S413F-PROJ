@@ -18,10 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainPage" />
+        <activity android:name=".QuestionActivity" />
         <activity android:name=".register" />
         <activity android:name=".Changepassword" />
-        <activity android:name=".Displaymillion"></activity>
+        <activity android:name=".Displaymillion" />
+        <activity android:name=".ResultActivity"/>
+        <activity android:name=".ControlPage"/>
     </application>
 
 </manifest>
