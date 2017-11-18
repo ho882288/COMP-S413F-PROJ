@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -83,6 +84,9 @@ public class QuestionActivity extends AppCompatActivity {
             answerList = new ArrayList<>(Arrays.asList(questionData.getCorrectAnswer()));
         }
         updateQuestion();
+        helper1.setBackgroundResource(R.drawable.helper1);
+        helper2.setBackgroundResource(R.drawable.helper2);
+        helper3.setBackgroundResource(R.drawable.helper3);
 
         //set mc buttons activity
         buttonChoice1.setOnClickListener(new View.OnClickListener() {
@@ -121,18 +125,74 @@ public class QuestionActivity extends AppCompatActivity {
 
         helper1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                helper(1);
+            }
+        });
 
+        helper2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                helper(2);
+            }
+        });
+
+        helper3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                helper(3);
             }
         });
 
     }
-    void helper(int number){
+
+    private void helper(int number){
+        switch (number){
+            case 1:
+                helper1.setBackgroundResource(R.drawable.helper1corss);
+                helper1.setEnabled(false);
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(" ")
+                    .setMessage("After a moment of chat, your girlfriend said the answer is choice " + randomChoice() +". Do you have trust issue with her?")
+                    .setNegativeButton("Continue", null)
+                    .show();
+            break;
+            case 2:
+                List distribution = randomDistribution(100,4);
+                helper2.setBackgroundResource(R.drawable.helper2cross);
+                helper2.setEnabled(false);
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(" ")
+                    .setMessage("Audiences's choices are shown as below:\n" +
+                            " A: "+ distribution.get(0) +"%\n B: "+ distribution.get(1) +"%\n C: "+ distribution.get(2) +"%\n D: "+ distribution.get(3) +"%")
+                    .setNegativeButton("Continue", null)
+                    .show();
+                break;
+         /*   default:
+                String buttonText[] = {buttonChoice1.getText().toString(), buttonChoice2.getText().toString(),buttonChoice3.getText().toString(),buttonChoice4.getText().toString(),};
+                String twoWrongCoice[];
+                for(String s :buttonText){
+                    while(s.substring(0,1) .equals( randomChoice()){
+
+                    }
+
+                }
+                while()
+                helper3.setBackgroundResource(R.drawable.helper3cross);
+                helper3.setEnabled(false);
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(" ")
+                        .setMessage("You used your helper, click to continue")
+                        .setNegativeButton("Continue", null)
+                        .show();*/
+        }
 
     }
 
-    void checkAnswer(int number){
-        String string[] = {buttonChoice1.getText().toString(), buttonChoice2.getText().toString(), buttonChoice3.getText().toString(), buttonChoice4.getText().toString()};
 
+     private void checkAnswer(int number){
+        //String string[] = {buttonChoice1.getText().toString(), buttonChoice2.getText().toString(), buttonChoice3.getText().toString(), buttonChoice4.getText().toString()};
+         String string[] = {choices[0], choices[1],choices[2], choices[3]};
         if ( string [number] == answer) {
             score += 1;
             updateScoreBoard(score);
@@ -145,7 +205,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
         //update question list
-     void updateQuestion(){
+     private void updateQuestion(){
          // win message
          if(score == 15){
              Toast.makeText(QuestionActivity.this, "You win 1M!", Toast.LENGTH_SHORT).show();
@@ -159,30 +219,32 @@ public class QuestionActivity extends AppCompatActivity {
              questionView.setText(currentQuestion);
 
              choices = choiceList.get(randomQuestionNumber);
-             buttonChoice1.setText(choices[0]);
-             buttonChoice2.setText(choices[1]);
-             buttonChoice3.setText(choices[2]);
-             buttonChoice4.setText(choices[3]);
+             buttonChoice1.setText("A. "+choices[0]);
+             buttonChoice2.setText("B. "+choices[1]);
+             buttonChoice3.setText("C. "+choices[2]);
+             buttonChoice4.setText("D. "+choices[3]);
 
              answer = answerList.get(randomQuestionNumber);
+
          }
     };
 
     //remove answered question
-    void removeCurrentQuestion(){
+   private void removeCurrentQuestion(){
         unansweredQuestions.remove(randomQuestionNumber);
         choiceList.remove(randomQuestionNumber);
         answerList.remove(randomQuestionNumber);
     }
+
     //update score board
-    void updateScoreBoard(int score){
+    private void updateScoreBoard(int score){
         this.score = score;
         for(int i =0; i<score; i++){
             checkBoxList.get(i).setChecked(true);
         }
     }
 
-    void dropToSafe(int a){
+    private void dropToSafe(int a){
         int temp = a;
         if(temp <5)
             temp = 0;
@@ -194,14 +256,14 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     // generate result page
-    void transitResultPage(int a){
+   private void transitResultPage(int a){
         Intent i=new Intent(QuestionActivity.this, ResultActivity.class);
         i.putExtra("Score", ""+a);
         startActivity(i);
     }
 
     //result dialog boxes
-    void resultDialog(final String a) {
+   private void resultDialog(final String a) {
         if (a == "Correct !") {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -225,7 +287,7 @@ public class QuestionActivity extends AppCompatActivity {
 
 
     //confirm answer dialog
-    void confirmDialog(final int a) {
+    private void confirmDialog(final int a) {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(" ")
@@ -242,7 +304,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     // quit  game button
-     void giveUpDialog(final int score) {
+    private void giveUpDialog(final int score) {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Quit game?")
@@ -257,7 +319,34 @@ public class QuestionActivity extends AppCompatActivity {
                 .setNegativeButton("cancel", null)
                 .show();
     }
+     private List randomDistribution(int targetSum, int numberOfDraws) {
+        Random r = new Random();
+        List<Integer> load = new ArrayList<>();
 
+        int sum = 0;
+        for (int i = 0; i < numberOfDraws; i++) {
+            int next = r.nextInt(targetSum) + 1;
+            load.add(next);
+            sum += next;
+        }
+        double scale = 1d * targetSum / sum;
+        sum = 0;
+        for (int i = 0; i < numberOfDraws; i++) {
+            load.set(i, (int) (load.get(i) * scale));
+            sum += load.get(i);
+        }
+        while(sum++ < targetSum) {
+            int i = r.nextInt(numberOfDraws);
+            load.set(i, load.get(i) + 1);
+        }
+       return load;
+    }
+
+    private char randomChoice(){
+            Random r = new Random();
+            char randomChoice = (char) (65 + r.nextInt(4));
+            return randomChoice;
+    }
 
 
 }

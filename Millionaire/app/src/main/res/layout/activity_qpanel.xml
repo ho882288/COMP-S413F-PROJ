@@ -9,8 +9,8 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        tools:layout_editor_absoluteX="-125dp"
-        tools:layout_editor_absoluteY="-69dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
 
         <LinearLayout
@@ -21,26 +21,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1.0">
+                android:layout_weight="1.0"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="2.0">
+                    android:layout_weight="2.0"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_weight="3.0">
+                        android:layout_weight="3.0"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_weight="3.0">
+                            android:layout_weight="3.0"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/imageView2"
@@ -54,8 +54,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:layout_weight="2.0">
+                            android:layout_weight="2.0"
+                            android:orientation="horizontal">
 
                             <ImageButton
                                 android:id="@+id/helper1"
@@ -63,24 +63,21 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:adjustViewBounds="false"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/helper1" />
+                                android:scaleType="fitXY" />
 
                             <ImageButton
                                 android:id="@+id/helper2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/helper2" />
+                                android:scaleType="fitXY" />
 
                             <ImageButton
                                 android:id="@+id/helper3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/helper3" />
+                                android:scaleType="fitXY" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -88,8 +85,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_weight="2.0">
+                        android:layout_weight="2.0"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/QuestionPanel"
@@ -106,8 +103,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="3.0">
+                    android:layout_weight="3.0"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -162,8 +159,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="3.0">
+                android:layout_weight="3.0"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -189,40 +186,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$1 MILLION"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$1 MILLION" />
 
                     <CheckBox
                         android:id="@+id/score14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$500,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$500,000" />
 
                     <CheckBox
                         android:id="@+id/score13"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$250,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$250,000" />
 
                     <CheckBox
                         android:id="@+id/score12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$125,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$125,000" />
 
                     <CheckBox
                         android:id="@+id/score11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$64,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$64,000" />
 
                     <CheckBox
                         android:id="@+id/score10"
@@ -240,32 +237,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$16,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$16,000" />
 
                     <CheckBox
                         android:id="@+id/score8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$8,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$8,000" />
 
                     <CheckBox
                         android:id="@+id/score7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$4,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$4,000" />
 
                     <CheckBox
                         android:id="@+id/score6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$2,000"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$2,000" />
 
                     <CheckBox
                         android:id="@+id/score5"
@@ -283,32 +280,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$500"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$500" />
 
                     <CheckBox
                         android:id="@+id/score3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$300"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$300" />
 
                     <CheckBox
                         android:id="@+id/score2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$200"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$200" />
 
                     <CheckBox
                         android:id="@+id/score1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$100"
-                        android:clickable="false"/>
+                        android:clickable="false"
+                        android:text="$100" />
 
 
                 </LinearLayout>
