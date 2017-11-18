@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +23,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
-public class ControlPage extends AppCompatActivity {
 
-    Button logout,chagepw,displaymillion,btn4,btn5;
+public class MainPage extends AppCompatActivity {
+    Button logout,chagepw,displaymillion,btn4;
     String name;
     TextView textView2;
     String type = "display";
@@ -39,7 +35,7 @@ public class ControlPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_control_page);
+        setContentView(R.layout.activity_main_page);
         Bundle bundle=getIntent().getExtras();
         name=bundle.getString("username");
         textView2=(TextView)findViewById(R.id.textView2);
@@ -49,11 +45,8 @@ public class ControlPage extends AppCompatActivity {
             //On click function
             public void onClick(View w) {
 
-                Toast.makeText(ControlPage.this,"You log out successfully", Toast.LENGTH_SHORT).show();
-                Intent jumpage=new Intent(ControlPage.this,MainActivity.class);
-				jumpage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //Closing all activities
-                jumpage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                jumpage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                Toast.makeText(MainPage.this,"You log out successfully", Toast.LENGTH_SHORT).show();
+                Intent jumpage=new Intent(MainPage.this,MainActivity.class);
                 startActivity(jumpage);
             }
         });
@@ -62,7 +55,7 @@ public class ControlPage extends AppCompatActivity {
             @Override
             //On click function
             public void onClick(View w) {
-                Intent in = new Intent(ControlPage.this,Changepassword.class);
+                Intent in = new Intent (MainPage.this,Changepassword.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username",name);
                 in.putExtras(bundle);
@@ -74,34 +67,22 @@ public class ControlPage extends AppCompatActivity {
             @Override
             //On click function
             public void onClick(View w) {
-                Intent in = new Intent (ControlPage.this,Displaymillion.class);
+                Intent in = new Intent (MainPage.this,Displaymillion.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("username",name);
                 in.putExtras(bundle);
                 startActivity(in);
             }
         });
-        new localBackgroundWorker(ControlPage.this).execute(type,name);
+        new localBackgroundWorker(MainPage.this).execute(type,name);
         btn4=(Button)findViewById(R.id.button4);
         btn4.setOnClickListener(new View.OnClickListener(){
             @Override
             //On click function
             public void onClick(View w) {
                 type="submittestone";
-                BackgroundWorker background = new BackgroundWorker(ControlPage.this);  //  if correct button
+                BackgroundWorker background = new BackgroundWorker(MainPage.this);  //  if correct button
                 background.execute(type,name,score);
-            }
-        });
-        btn5=(Button)findViewById(R.id.button5);
-        btn5.setOnClickListener(new View.OnClickListener(){
-            @Override
-            //On click function
-            public void onClick(View w) {
-                Intent in = new Intent (ControlPage.this,QuestionActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("username",name);
-                in.putExtras(bundle);
-                startActivity(in);
             }
         });
 
@@ -146,7 +127,7 @@ public class ControlPage extends AppCompatActivity {
                     result=result.replace("}","");
                     result=result.replace("\"","");
                     System.out.println(result);
-                    t1=result.substring(6);  //t1 is the score is database
+                    t1=result.substring(6);
 
 
                     bufferedReader.close();

@@ -46,7 +46,7 @@ public class register extends AppCompatActivity {
                     //to do--database
                     BackgroundWorker background = new BackgroundWorker(register.this);
                     background.execute(type,name,pw);
-                    /*Intent in = new Intent (register.this,QuestionActivity.class);
+                    /*Intent in = new Intent (register.this,MainPage.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("username",name);
                     in.putExtras(bundle);
