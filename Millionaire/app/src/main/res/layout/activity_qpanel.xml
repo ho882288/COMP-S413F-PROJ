@@ -63,6 +63,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:adjustViewBounds="false"
+                                android:scaleType="fitXY"
                                 android:src="@drawable/helper1" />
 
                             <ImageButton
@@ -70,6 +71,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:scaleType="fitXY"
                                 android:src="@drawable/helper2" />
 
                             <ImageButton
@@ -77,6 +79,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:scaleType="fitXY"
                                 android:src="@drawable/helper3" />
 
                         </LinearLayout>

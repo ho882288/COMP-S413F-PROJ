@@ -53,7 +53,10 @@ public class QuestionActivity extends AppCompatActivity {
         buttonChoice2 = (Button) findViewById(R.id.Answer2);
         buttonChoice3 = (Button) findViewById(R.id.Answer3);
         buttonChoice4 = (Button) findViewById(R.id.Answer4);
-        quit = (ImageButton)findViewById((R.id.giveUp));
+        quit = (ImageButton)findViewById(R.id.giveUp);
+        helper1 = (ImageButton)findViewById(R.id.helper1) ;
+        helper2 = (ImageButton)findViewById(R.id.helper2) ;
+        helper3 = (ImageButton)findViewById(R.id.helper3) ;
 
          checkBox0 = (CheckBox)findViewById(R.id.score1);
          checkBox1 = (CheckBox)findViewById(R.id.score2);
@@ -115,6 +118,15 @@ public class QuestionActivity extends AppCompatActivity {
                 giveUpDialog(score);
             }
         });
+
+        helper1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+    void helper(int number){
 
     }
 
@@ -187,6 +199,8 @@ public class QuestionActivity extends AppCompatActivity {
         i.putExtra("Score", ""+a);
         startActivity(i);
     }
+
+    //result dialog boxes
     void resultDialog(final String a) {
         if (a == "Correct !") {
             new AlertDialog.Builder(this)
