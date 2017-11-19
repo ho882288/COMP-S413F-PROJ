@@ -49,12 +49,15 @@ public class QuestionActivity extends AppCompatActivity {
     private int score = 0;
     private int randomQuestionNumber;
     private boolean helper3Used = false;
-<<<<<<< HEAD
     public String type;
-=======
+
     private long defaultTime = 35000;
     private long timeRemain;
->>>>>>> 150e97e228bfa6314b91221af0055a5111de68ed
+
+
+    private long defaultTime = 35000;
+    private long timeRemain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
