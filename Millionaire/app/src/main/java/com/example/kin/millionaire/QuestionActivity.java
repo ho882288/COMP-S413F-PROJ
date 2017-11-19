@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static android.R.id.list;
+
 public class QuestionActivity extends AppCompatActivity {
 
     private QuestionData questionData = new QuestionData();
@@ -167,16 +169,34 @@ public class QuestionActivity extends AppCompatActivity {
                     .setNegativeButton("Continue", null)
                     .show();
                 break;
-         /*   default:
-                String buttonText[] = {buttonChoice1.getText().toString(), buttonChoice2.getText().toString(),buttonChoice3.getText().toString(),buttonChoice4.getText().toString(),};
-                String twoWrongCoice[];
-                for(String s :buttonText){
-                    while(s.substring(0,1) .equals( randomChoice()){
+           default:
+              ArrayList<String> buttonText = new ArrayList<>();
+               buttonText.addAll(Arrays.asList(buttonChoice1.getText().toString(), buttonChoice2.getText().toString(),buttonChoice3.getText().toString(),buttonChoice4.getText().toString()));
+               Random r = new Random();
+               ArrayList<String> randomChoiceList = new ArrayList<>();
+              while(true) {
+                 String randomChoiceText = buttonText.get(r.nextInt(buttonText.size()));
+                  if(randomChoiceList.size() == 2)
+                      break;
+                  else if (!randomChoiceText.substring(randomChoiceText.indexOf(".") + 2, randomChoiceText.length()).equals(answer) && !randomChoiceList.contains(randomChoiceText.substring(0, 1))) {
+                     randomChoiceList.add(randomChoiceText.substring(0, 1));
+                 }
+               }
+               for(String s:randomChoiceList){
+                   if(s .equals("A")) {
+                       buttonChoice1.setAlpha(.2f);
+                       buttonChoice1.setClickable(false);}
+                   else if(s .equals("B")) {
+                       buttonChoice2.setAlpha(.2f);
+                       buttonChoice2.setClickable(false);}
+                   else if(s .equals("C")) {
+                       buttonChoice3.setAlpha(.2f);
+                       buttonChoice3.setClickable(false);}
+                   else if(s .equals("D")){
+                       buttonChoice4.setAlpha(.2f);
+                       buttonChoice4.setClickable(false);}
+               }
 
-                    }
-
-                }
-                while()
                 helper3.setBackgroundResource(R.drawable.helper3cross);
                 helper3.setEnabled(false);
                 new AlertDialog.Builder(this)
@@ -184,24 +204,18 @@ public class QuestionActivity extends AppCompatActivity {
                         .setTitle(" ")
                         .setMessage("You used your helper, click to continue")
                         .setNegativeButton("Continue", null)
-                        .show();*/
+                        .show();
         }
 
     }
 
 
-     private void checkAnswer(int number){
+     private boolean checkAnswer(int number){
         //String string[] = {buttonChoice1.getText().toString(), buttonChoice2.getText().toString(), buttonChoice3.getText().toString(), buttonChoice4.getText().toString()};
          String string[] = {choices[0], choices[1],choices[2], choices[3]};
-        if ( string [number] == answer) {
-            score += 1;
-            updateScoreBoard(score);
-            resultDialog("Correct !");
-            removeCurrentQuestion();
-            updateQuestion();
-        } else {
-            resultDialog("Wrong !");
-        }
+        if ( string [number] == answer)
+            return true;
+         return false;
     }
 
         //update question list
@@ -296,7 +310,15 @@ public class QuestionActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        checkAnswer(a);
+                        if(checkAnswer(a)){
+                            score += 1;
+                            updateScoreBoard(score);
+                            resultDialog("Correct !");
+                            removeCurrentQuestion();
+                            updateQuestion();
+                        } else {
+                            resultDialog("Wrong !");
+                        };
                     }
                 })
                 .setNegativeButton("No", null)
