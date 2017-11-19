@@ -50,10 +50,7 @@ public class QuestionActivity extends AppCompatActivity {
     private int randomQuestionNumber;
     private boolean helper3Used = false;
     public String type;
-
-    private long defaultTime = 35000;
-    private long timeRemain;
-
+    
 
     private long defaultTime = 35000;
     private long timeRemain;
