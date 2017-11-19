@@ -18,6 +18,7 @@ public class ResultActivity extends AppCompatActivity {
     private ImageButton quit;
     private ImageButton restart;
     private String name;
+    private String type;
 
 
 
@@ -35,10 +36,10 @@ public class ResultActivity extends AppCompatActivity {
         restart = (ImageButton) findViewById(R.id.restartButton);
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
-            String value = extras.getString("score");
-            resultView.setText("You get $"+QuestionActivity.money[Integer.parseInt(value)]+", congratulations!!");
-        }
+
+        String value = extras.getString("score");
+        resultView.setText("You get $"+QuestionActivity.money[Integer.parseInt(value)]+", congratulations!!");
+
 
         //return to main page
         quit.setOnClickListener(new View.OnClickListener() {

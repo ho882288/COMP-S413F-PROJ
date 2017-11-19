@@ -230,8 +230,17 @@ public class QuestionActivity extends AppCompatActivity {
     private void updateQuestion(){
          // win message
          if(score == 15){
-             Toast.makeText(QuestionActivity.this, "You win 1M!", Toast.LENGTH_SHORT).show();
-             transitResultPage(score);
+             //Toast.makeText(QuestionActivity.this, "You win 1M!", Toast.LENGTH_SHORT).show();
+             new AlertDialog.Builder(this)
+                     .setIcon(android.R.drawable.ic_dialog_alert)
+                     .setTitle(" ")
+                     .setMessage("You win $1 MILLION!")
+                     .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which) {
+                             transitResultPage(score);
+                         }
+                     }).show();
          }else {
              //generate random question order
              Random r = new Random();
