@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -16,6 +17,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView resultView;
     private ImageButton quit;
     private ImageButton restart;
+    private String name;
 
 
 
@@ -23,8 +25,10 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_page);
+        Bundle bundle=getIntent().getExtras();
+        name = bundle.getString("username");
 
-
+        //Toast.makeText(ResultActivity.this, name, Toast.LENGTH_SHORT).show();
         //set panel
         resultView = (TextView) findViewById(R.id.resultPanel);
         quit = (ImageButton) findViewById(R.id.quitButton);
@@ -32,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            String value = extras.getString("Score");
+            String value = extras.getString("score");
             resultView.setText("You get $"+QuestionActivity.money[Integer.parseInt(value)]+", congratulations!!");
         }
 
@@ -40,6 +44,9 @@ public class ResultActivity extends AppCompatActivity {
         quit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i=new Intent(ResultActivity.this, ControlPage.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username",name);
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });
@@ -48,6 +55,9 @@ public class ResultActivity extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i=new Intent(ResultActivity.this, QuestionActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username",name);
+                i.putExtras(bundle);
                 startActivity(i);
             }
         });

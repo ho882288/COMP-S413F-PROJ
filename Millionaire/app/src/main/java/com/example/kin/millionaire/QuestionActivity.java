@@ -5,6 +5,7 @@ package com.example.kin.millionaire;
  */
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import static android.R.id.list;
 public class QuestionActivity extends AppCompatActivity {
 
     private QuestionData questionData = new QuestionData();
-
+    private String name;
     private TextView questionView;
     private Button buttonChoice1;
     private Button buttonChoice2;
@@ -34,6 +35,8 @@ public class QuestionActivity extends AppCompatActivity {
     static String money[] = {"0","100","200","300","500","1000","2000","4000","8000","16,000","32,000","64,000","125,000","250,000","500,000","1 MILLION"};
     private ImageButton quit;
     private ImageButton helper1, helper2, helper3;
+    private TextView timer;
+    private CountDownTimer mTimer;
 
     private ArrayList<CheckBox> checkBoxList = new ArrayList<>();
     private ArrayList<String> unansweredQuestions = new ArrayList<>();
@@ -44,14 +47,16 @@ public class QuestionActivity extends AppCompatActivity {
     private String answer;
     private int score = 0;
     private int randomQuestionNumber;
-
+    private boolean helper3Used = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qpanel);
-
+        Bundle bundle=getIntent().getExtras();
+        name = bundle.getString("username");
         //set panels
         questionView = (TextView) findViewById(R.id.QuestionPanel);
+        timer = (TextView)findViewById(R.id.timer);
         buttonChoice1 = (Button) findViewById(R.id.Answer1);
         buttonChoice2 = (Button) findViewById(R.id.Answer2);
         buttonChoice3 = (Button) findViewById(R.id.Answer3);
@@ -78,7 +83,7 @@ public class QuestionActivity extends AppCompatActivity {
          checkBox14 = (CheckBox)findViewById(R.id.score15);
          checkBoxList.addAll(Arrays.asList(checkBox0, checkBox1, checkBox2, checkBox3 ,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,checkBox11,checkBox12,checkBox13,checkBox14));
 
-
+        //Toast.makeText(QuestionActivity.this, name, Toast.LENGTH_SHORT).show();
         //initialize questions list
         if (unansweredQuestions == null || unansweredQuestions.size() == 0) {
             unansweredQuestions = new ArrayList<>(Arrays.asList(questionData.getQuestion()));
@@ -89,6 +94,7 @@ public class QuestionActivity extends AppCompatActivity {
         helper1.setBackgroundResource(R.drawable.helper1);
         helper2.setBackgroundResource(R.drawable.helper2);
         helper3.setBackgroundResource(R.drawable.helper3);
+
 
         //set mc buttons activity
         buttonChoice1.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +205,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                 helper3.setBackgroundResource(R.drawable.helper3cross);
                 helper3.setEnabled(false);
+                helper3Used = true;
                 new AlertDialog.Builder(this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle(" ")
@@ -219,7 +226,8 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
         //update question list
-     private void updateQuestion(){
+
+    private void updateQuestion(){
          // win message
          if(score == 15){
              Toast.makeText(QuestionActivity.this, "You win 1M!", Toast.LENGTH_SHORT).show();
@@ -231,17 +239,26 @@ public class QuestionActivity extends AppCompatActivity {
              // int randomQuestionNumber =  (int)(Math.random() * ((unansweredQuestions.size()) + 1));
              currentQuestion = unansweredQuestions.get(randomQuestionNumber);
              questionView.setText(currentQuestion);
-
              choices = choiceList.get(randomQuestionNumber);
              buttonChoice1.setText("A. "+choices[0]);
              buttonChoice2.setText("B. "+choices[1]);
              buttonChoice3.setText("C. "+choices[2]);
              buttonChoice4.setText("D. "+choices[3]);
-
              answer = answerList.get(randomQuestionNumber);
 
+             startTimer();
+             if(helper3Used == true){
+             buttonChoice1.setAlpha(1f);
+             buttonChoice1.setClickable(true);
+             buttonChoice2.setAlpha(1f);
+             buttonChoice2.setClickable(true);
+             buttonChoice3.setAlpha(1f);
+             buttonChoice3.setClickable(true);
+             buttonChoice4.setAlpha(1f);
+             buttonChoice4.setClickable(true);
+                 helper3Used = false;
          }
-    };
+    }}
 
     //remove answered question
    private void removeCurrentQuestion(){
@@ -258,6 +275,33 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
+    private void startTimer(){
+        if(mTimer != null){
+            mTimer.cancel();
+            mTimer.start();
+        }else mTimer = new CountDownTimer(35000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                timer.setText("" + millisUntilFinished / 1000);
+            }
+            public void onFinish() {
+                timerEnd();
+            }
+        }.start();
+    }
+
+    private void timerEnd(){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(" ")
+                .setMessage("Time's up!")
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dropToSafe(score);
+                    }
+                }).show();
+    }
+
     private void dropToSafe(int a){
         int temp = a;
         if(temp <5)
@@ -272,8 +316,12 @@ public class QuestionActivity extends AppCompatActivity {
     // generate result page
    private void transitResultPage(int a){
         Intent i=new Intent(QuestionActivity.this, ResultActivity.class);
-        i.putExtra("Score", ""+a);
+        Bundle bundle = new Bundle();
+        bundle.putString("username",name);
+        bundle.putString("score",""+a);
+        i.putExtras(bundle);
         startActivity(i);
+
     }
 
     //result dialog boxes
@@ -341,6 +389,7 @@ public class QuestionActivity extends AppCompatActivity {
                 .setNegativeButton("cancel", null)
                 .show();
     }
+
      private List randomDistribution(int targetSum, int numberOfDraws) {
         Random r = new Random();
         List<Integer> load = new ArrayList<>();
