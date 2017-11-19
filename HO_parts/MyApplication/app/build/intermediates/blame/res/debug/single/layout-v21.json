@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\Kin\\Documents\\GitHub\\COMP-S413F-PROJ\\HO_parts\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Kin\\.android\\build-cache\\770f93d6596a5716e93250be54d63d8c820cec65\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kin\\Documents\\GitHub\\COMP-S413F-PROJ\\HO_parts\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Kin\\.android\\build-cache\\770f93d6596a5716e93250be54d63d8c820cec65\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kin\\Documents\\GitHub\\COMP-S413F-PROJ\\HO_parts\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Kin\\.android\\build-cache\\770f93d6596a5716e93250be54d63d8c820cec65\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kin\\Documents\\GitHub\\COMP-S413F-PROJ\\HO_parts\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\Kin\\.android\\build-cache\\770f93d6596a5716e93250be54d63d8c820cec65\\output\\res\\layout-v21\\notification_action.xml"
+    }
+]
