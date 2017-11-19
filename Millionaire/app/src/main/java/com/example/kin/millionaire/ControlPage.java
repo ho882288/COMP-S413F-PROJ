@@ -87,7 +87,7 @@ public class ControlPage extends AppCompatActivity {
             }
         });
         new localBackgroundWorker(ControlPage.this).execute(type,name);
-        btn4=(Button)findViewById(R.id.button4);
+        /*btn4=(Button)findViewById(R.id.button4);
         btn4.setOnClickListener(new View.OnClickListener(){
             @Override
             //On click function
@@ -96,7 +96,7 @@ public class ControlPage extends AppCompatActivity {
                 BackgroundWorker background = new BackgroundWorker(ControlPage.this);  //  if correct button
                 background.execute(type,name,score);
             }
-        });
+        });*/
         btn5=(Button)findViewById(R.id.button5);
         btn5.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -174,7 +174,7 @@ public class ControlPage extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
-            textView2.setText(t1);
+            textView2.setText("Lastest score: "+t1);
 
 
 

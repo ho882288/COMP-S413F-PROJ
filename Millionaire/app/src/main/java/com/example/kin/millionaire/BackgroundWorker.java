@@ -255,7 +255,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
         }else if (result.contains("Update not")){
             Toast.makeText(context,"Fail to change password. Try again later", Toast.LENGTH_SHORT).show();
         }else if (result.contains("Update")){
-            Toast.makeText(context,"Password has been changed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"Information has been changed", Toast.LENGTH_SHORT).show();
         }else if (result.contains("test")){
 
 

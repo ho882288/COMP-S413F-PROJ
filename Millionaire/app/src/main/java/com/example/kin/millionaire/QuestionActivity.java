@@ -34,6 +34,7 @@ public class QuestionActivity extends AppCompatActivity {
     private CheckBox checkBox0, checkBox1, checkBox2, checkBox3 ,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,checkBox11,checkBox12,checkBox13,checkBox14;
     static String money[] = {"0","100","200","300","500","1000","2000","4000","8000","16,000","32,000","64,000","125,000","250,000","500,000","1 MILLION"};
     private ImageButton quit;
+    private ImageButton pause;
     private ImageButton helper1, helper2, helper3;
     private TextView timer;
     private CountDownTimer mTimer;
@@ -48,6 +49,12 @@ public class QuestionActivity extends AppCompatActivity {
     private int score = 0;
     private int randomQuestionNumber;
     private boolean helper3Used = false;
+<<<<<<< HEAD
+    public String type;
+=======
+    private long defaultTime = 35000;
+    private long timeRemain;
+>>>>>>> 150e97e228bfa6314b91221af0055a5111de68ed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +69,7 @@ public class QuestionActivity extends AppCompatActivity {
         buttonChoice3 = (Button) findViewById(R.id.Answer3);
         buttonChoice4 = (Button) findViewById(R.id.Answer4);
         quit = (ImageButton)findViewById(R.id.giveUp);
+        pause = (ImageButton)findViewById(R.id.pauseGame);
         helper1 = (ImageButton)findViewById(R.id.helper1) ;
         helper2 = (ImageButton)findViewById(R.id.helper2) ;
         helper3 = (ImageButton)findViewById(R.id.helper3) ;
@@ -95,6 +103,7 @@ public class QuestionActivity extends AppCompatActivity {
         helper2.setBackgroundResource(R.drawable.helper2);
         helper3.setBackgroundResource(R.drawable.helper3);
 
+        startTimer(defaultTime);
 
         //set mc buttons activity
         buttonChoice1.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +140,12 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
+        pause.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                pauseGame();
+            }
+        });
+
         helper1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 helper(1);
@@ -148,6 +163,8 @@ public class QuestionActivity extends AppCompatActivity {
                 helper(3);
             }
         });
+
+
 
     }
 
@@ -255,7 +272,7 @@ public class QuestionActivity extends AppCompatActivity {
              buttonChoice4.setText("D. "+choices[3]);
              answer = answerList.get(randomQuestionNumber);
 
-             startTimer();
+             startTimer(defaultTime);
              if(helper3Used == true){
              buttonChoice1.setAlpha(1f);
              buttonChoice1.setClickable(true);
@@ -284,13 +301,13 @@ public class QuestionActivity extends AppCompatActivity {
         }
     }
 
-    private void startTimer(){
-        if(mTimer != null){
+    private void startTimer(long time){
+        if(mTimer != null)
             mTimer.cancel();
-            mTimer.start();
-        }else mTimer = new CountDownTimer(35000, 1000) {
+        mTimer = new CountDownTimer(time, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer.setText("" + millisUntilFinished / 1000);
+                timeRemain = millisUntilFinished;
             }
             public void onFinish() {
                 timerEnd();
@@ -311,6 +328,22 @@ public class QuestionActivity extends AppCompatActivity {
                 }).show();
     }
 
+    private void pauseGame(){
+        mTimer.cancel();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(" ")
+                .setMessage("Pause")
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        long timerValue = timeRemain;
+                        mTimer = null;
+                        startTimer(timerValue);
+                    }
+                }).show();
+    }
+    
     private void dropToSafe(int a){
         int temp = a;
         if(temp <5)
@@ -369,11 +402,25 @@ public class QuestionActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if(checkAnswer(a)){
                             score += 1;
+                            type="submittestone"; //  if correct button
+                            BackgroundWorker background = new BackgroundWorker(QuestionActivity.this);  //  if correct button
+                            background.execute(type,name,money[score]); //  if correct button
                             updateScoreBoard(score);
                             resultDialog("Correct !");
                             removeCurrentQuestion();
                             updateQuestion();
                         } else {
+                            type="submittestone";
+                            if (score>= 10) {
+                                BackgroundWorker background = new BackgroundWorker(QuestionActivity.this);  //  if wrong button
+                                background.execute(type, name, "32000"); //  if wrong button
+                            }else if(score>=5){
+                                BackgroundWorker background = new BackgroundWorker(QuestionActivity.this);  //  if wrong button
+                                background.execute(type, name, "1000"); //  if wrong button
+                            }else{
+                                BackgroundWorker background = new BackgroundWorker(QuestionActivity.this);  //  if wrong button
+                                background.execute(type, name, "0"); //  if wrong button
+                            }
                             resultDialog("Wrong !");
                         };
                     }
