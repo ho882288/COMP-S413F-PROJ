@@ -1,6 +1,4 @@
 package com.example.kin.millionaire;
-import java.sql.* ;
-
 
 /**
  * Created by Admin on 2017/11/14.
@@ -74,57 +72,57 @@ public class QuestionData {
     public String[] getCorrectAnswer(){
         return CorrectAnswers;
     }
-
-
-    public static void main(String[] args) {
-        QuestionData q = new QuestionData(); // 加上這行初始化物件
-         String url = "jdbc:mysql://leungwaikin.000webhostapp.com/id2987906_leungwaikin";
-         String username = "";   	//範例，使用者ID
-         String password = "";	//範例，使用者密碼
-         Connection con = null;
-         Statement stat = null; 	//執行,傳入之sql為完整字串
-         ResultSet rs = null; 	//結果集
-         PreparedStatement pst = null;
-        int x=0;
-        int y=0;
-
+    
+	public SQLiteDatabase db;
+    public String DB_NAME = "questions_db";
+    public String TABLE_NAME = "questions";
+    
+    public void openDatabase(){
         try {
-            con = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            throw new RuntimeException("Cannot connect the database!", e);
-        }
-
-        try {
-            stat = con.createStatement();
-            rs = stat.executeQuery("select question from Question ");
-            while(rs.next()) {
-                q.Questions[x]=rs.getString("question");
-                x++;
+            db = openOrCreaDatabase(DB_NAME,SQLiteDatabase.CREATE_IF_NECESSARY,null);
+        } catch (FileNotFoundException e) {
             }
-        }
-        catch(SQLException e) {
-        }
-
-        try {
-            stat = con.createStatement();
-            rs = stat.executeQuery("select a,b,c,d from Question ");
-            while(rs.next()) {
-                q.Choices [y][0]=rs.getString("a");
-                q.Choices [y][1]=rs.getString("b");
-                q.Choices [y][2]=rs.getString("c");
-                q.Choices [y][3]=rs.getString("d");
-                y++;
-            }
-        }
-        catch(SQLException e) {
-        }
-
-        if (con != null)
-            try { con.close(); }
-            catch (SQLException ignore) {}
-
-
+        
     }
 
+    public void createTable(){
+        String sql = "create table " + TABLE_NAME + " ("
+            + "question text, "
+            + "a text, "
+			+ "b text, "
+			+ "c text, "
+            + "d text);";
 
+        try {
+            db.execSQL(sql);
+        } catch (SQLException e) {
+            Log.e("ERROR", e.toString());
+        }
+    }
+    
+	public void setQuestion(){
+        String sql = "select * from " + TABLE_NAME + ";";
+            try {
+                SQLiteCursor c = (SQLiteCursor)db.query(sql, null);
+                int rowcount = c.count();
+                c.first();
+                for (int i = 0; i < rowcount ; i++) {
+                    Questions[i] = c.getInt(0);
+                    Choices[i][0] = c.getString(1);
+                    Choices[i][1] = c.getString(2);
+					Choices[i][2] = c.getString(3);
+					Choices[i][3] = c.getString(4);
+
+
+                    c.next();
+                }
+
+                textResult.setText(new String(sb));
+            } catch (SQLException e) {
+                Log.e("ERROR", e.toString());
+            }
+        }
+    }
+	
+	
 }
