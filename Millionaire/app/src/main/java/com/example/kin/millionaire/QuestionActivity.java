@@ -61,7 +61,16 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qpanel);
         Bundle bundle=getIntent().getExtras();
         name = bundle.getString("username");
+
+        //database
+        type="database";
+        //to-do-database
+        String[][] array = new String[15][5];
+        /*Database db = new Database(QuestionActivity.this);
+        db.execute(type);
+        questionData.setAll(array);*/
         //set panels
+        // questionData.setQuestion();
         questionView = (TextView) findViewById(R.id.QuestionPanel);
         timer = (TextView)findViewById(R.id.timer);
         buttonChoice1 = (Button) findViewById(R.id.Answer1);
