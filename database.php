@@ -1,16 +1,15 @@
  <?php
     require "conn.php";
     //fetch table rows from mysql db
-    $sql = "select * from questions";
+    $sql = "select * from question";
     $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 
     //create an array
     $data = array();
     while($row =mysqli_fetch_assoc($result))
     {
-        $data[] = array($row["question"],$row["a"],$row["b"],$row["c"],$row["d"]);
+        echo $row["question"]." ".$row["a"]." ".$row["b"]." ".$row["c"]." ".$row["d"]." ";
     }
-    echo json_encode($data);
 
     //close the db connection
     mysqli_close($conn);

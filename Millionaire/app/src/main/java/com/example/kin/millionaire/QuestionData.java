@@ -76,15 +76,16 @@ public class QuestionData {
         return CorrectAnswers;
     }
 
-    public void setAll(String data [][]){
-        int i=0;
-        while(String[] a : data){
-            Questions[i] = a[0];
-            Choices[i][0] = a[1];
-            Choices[i][1] = a[2];
-            Choices[i][2] = a[3];
-            Choices[i][3] = a[4];
-            i++;
+    public void setAll(String data[][]){
+        for(int i=0; i<data.length; i++) {
+            for(int j=0; j<data[i].length; j++) {
+                Questions[i] = data[i][j];
+                Choices[i][0] = data[i][j];
+                Choices[i][1] = data[i][j];
+                Choices[i][2] = data[i][j];
+                Choices[i][3] = data[i][j];
+
+            }
         }
 
 
