@@ -5,11 +5,14 @@ package com.example.kin.millionaire;
  */
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
 
 import static android.R.id.list;
 
@@ -307,9 +311,20 @@ public class QuestionActivity extends AppCompatActivity {
         mTimer = new CountDownTimer(time, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer.setText("" + millisUntilFinished / 1000);
+                if(millisUntilFinished<=11000) {
+                timer.setTextColor(Color.RED);
+
+                }
+
                 timeRemain = millisUntilFinished;
             }
+
             public void onFinish() {
+                timer.setText("0");
+                timer.setTextColor(Color.RED);
+                Animation shake;
+                shake = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.shake);
+                timer.startAnimation(shake);
                 timerEnd();
             }
         }.start();
