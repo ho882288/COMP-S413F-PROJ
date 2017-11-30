@@ -54,10 +54,12 @@ public class QuestionActivity extends AppCompatActivity {
     private int randomQuestionNumber;
     private boolean helper3Used = false;
     public String type;
+    public String[] testQ={"10", "20", "30", "40", "50", "60", "70", "80", "90", "100", "110", "120", "130", "140", "150"};
     
 
     private long defaultTime = 35000;
     private long timeRemain;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +67,13 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qpanel);
         Bundle bundle=getIntent().getExtras();
         name = bundle.getString("username");
-
         //database
         //to-do-database
-        String[][] array;
-        Database db = new Database();
-        array =db.doInBackground();
-        questionData.setAll(array);
+        //questionData.setQuestion(questionData.doInBackground());
+
+
+
+
 
         //set panels
         questionView = (TextView) findViewById(R.id.QuestionPanel);

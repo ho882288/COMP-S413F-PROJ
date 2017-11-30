@@ -1,16 +1,25 @@
 package com.example.kin.millionaire;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created by Admin on 2017/11/14.
  */
 
 public class QuestionData {
+    public QuestionData(){
+        setQuestion(doInBackground());
+    }
 
-    private String Questions [] = {
+    private String Questions[] = new String[]{
             "Test 1 answer is 1",
             "Test 2 answer is 2",
             "Test 3 answer is 3",
@@ -28,25 +37,46 @@ public class QuestionData {
             "Test 15 answer is 3",
     };
 
-    private String Choices [][] = {
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"},
-            {"1","2","3","4"}
+
+    /*
+     public String Questions[]={
+             "Q1",
+             "Q2"
+     ,"Q3"
+      ,"Q4"
+      ,"Q5"
+      ,"Q6"
+     , "Q7"
+     , "Q8"
+     , "Q9"
+     , "Q10"
+     , "Q11"
+     , "012"
+     , "Q13"
+     , "Q14"
+     , "Q15"
+     };
+     */
+    //public String Questions[];
+    public String Choices[][] = {
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"},
+            {"1", "2", "3", "4"}
     };
 
-    private String CorrectAnswers[] = {
+    public String CorrectAnswers[] = {
             "1",
             "2",
             "3",
@@ -64,21 +94,21 @@ public class QuestionData {
             "3"
     };
 
-    public  String[] getQuestion(){
+    public String[] getQuestion() {
         return Questions;
     }
 
-    public String[][] getChoices(){
+    public String[][] getChoices() {
         return Choices;
     }
 
-    public String[] getCorrectAnswer(){
+    public String[] getCorrectAnswer() {
         return CorrectAnswers;
     }
 
-    public void setAll(String data[][]){
-        for(int i=0; i<data.length; i++) {
-            for(int j=0; j<data[i].length; j++) {
+    public void setAll(String data[][]) {
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
                 Questions[i] = data[i][j];
                 Choices[i][0] = data[i][j];
                 Choices[i][1] = data[i][j];
@@ -87,12 +117,61 @@ public class QuestionData {
 
             }
         }
+    }
+
+    public void setQuestion(String data[]) {
+        Questions = data;
+    }
+
+    public String[] doInBackground() {
+        String database_url = "https://leungwaikin.000webhostapp.com/database.php";
+        int i = 0;
+        String data[] = null;
+//leungwaikin.000webhostapp.com
+        /*
+        try {
+            URL url = new URL(database_url);
+            URLConnection urlCon = url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlCon.getInputStream()));
+            String  q;
+            int size;
+            size = Integer.parseInt(br.readLine());
+
+
+            for(int num = 0; num < data.length; num++){
+                q=br.readLine();
+                String[] tokens = q.split(" ");
+            }
+            br.close();
+        } catch(Exception e){
+            // handle errors here...
+        }
+        return  data;
+        */
+        try {
+            URL url = new URL(database_url);
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null){
+                inputLine=inputLine.replace("connection success","");
+                String[] tokens = inputLine.split("\r\n");
+                for(String token:tokens){
+                    data[i]=token;
+                    i++;}
+            }
+            in.close();
+        }
+
+        catch(Exception e){
+            // handle errors here...
+        }
+
+
+        return data;
 
 
     }
-
-
-
+}
     /*SQL
     public void setQuestion(){
 
@@ -126,7 +205,7 @@ public class QuestionData {
     }
      */
 
-}
+
 	/*
 	public SQLiteDatabase db;
     public String DB_NAME = "questions_db";
