@@ -6,6 +6,7 @@ package com.example.kin.millionaire;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -190,6 +191,8 @@ public class QuestionActivity extends AppCompatActivity {
     private void helper(int number){
         switch (number){
             case 1:
+                MediaPlayer phone = MediaPlayer.create(QuestionActivity.this, R.raw.phone);
+                phone.start();
                 helper1.setBackgroundResource(R.drawable.helper1corss);
                 helper1.setEnabled(false);
             new AlertDialog.Builder(this)
@@ -200,6 +203,8 @@ public class QuestionActivity extends AppCompatActivity {
                     .show();
             break;
             case 2:
+                MediaPlayer button = MediaPlayer.create(QuestionActivity.this, R.raw.button);
+                button.start();
                 List distribution = randomDistribution(100,4);
                 helper2.setBackgroundResource(R.drawable.helper2cross);
                 helper2.setEnabled(false);
@@ -238,7 +243,8 @@ public class QuestionActivity extends AppCompatActivity {
                        buttonChoice4.setAlpha(.2f);
                        buttonChoice4.setClickable(false);}
                }
-
+               MediaPlayer disappear = MediaPlayer.create(QuestionActivity.this, R.raw.disappear);
+               disappear.start();
                 helper3.setBackgroundResource(R.drawable.helper3cross);
                 helper3.setEnabled(false);
                 helper3Used = true;
@@ -340,12 +346,15 @@ public class QuestionActivity extends AppCompatActivity {
                 Animation shake;
                 shake = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.shake);
                 timer.startAnimation(shake);
+
                 timerEnd();
             }
         }.start();
     }
 
     private void timerEnd(){
+        MediaPlayer alertSound= MediaPlayer.create(this, R.raw.alarm);
+        alertSound.start();
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(" ")
@@ -431,6 +440,8 @@ public class QuestionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(checkAnswer(a)){
+                            MediaPlayer correctSound=MediaPlayer.create(QuestionActivity.this,R.raw.correct);
+                            correctSound.start();
                             score += 1;
                             type="submittestone"; //  if correct button
                             BackgroundWorker background = new BackgroundWorker(QuestionActivity.this);  //  if correct button
@@ -451,6 +462,8 @@ public class QuestionActivity extends AppCompatActivity {
                                 BackgroundWorker background = new BackgroundWorker(QuestionActivity.this);  //  if wrong button
                                 background.execute(type, name, "0"); //  if wrong button
                             }
+                            MediaPlayer wrongSound=MediaPlayer.create(QuestionActivity.this, R.raw.wrong);
+                            wrongSound.start();
                             resultDialog("Wrong !");
                         };
                     }
