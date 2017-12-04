@@ -2,96 +2,83 @@ package com.example.kin.millionaire;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
+import android.os.AsyncTask;
+
 import java.io.*;
 import java.util.*;
+
 
 /**
  * Created by Admin on 2017/11/14.
  */
 
 public class QuestionData {
-    public QuestionData(){
-        setQuestion(doInBackground());
+    public QuestionData() {
     }
 
     private String Questions[] = new String[]{
-            "Test 1 answer is 1",
-            "Test 2 answer is 2",
-            "Test 3 answer is 3",
-            "Test 4 answer is 4",
-            "Test 5 answer is 1",
-            "Test 6 answer is 2",
-            "Test 7 answer is 3",
-            "Test 8 answer is 4",
-            "Test 9 answer is 1",
-            "Test 10 answer is 2",
-            "Test 11 answer is 3",
-            "Test 12 answer is 4",
-            "Test 13 answer is 1",
-            "Test 14 answer is 2",
-            "Test 15 answer is 3",
+            "Which film festival celebrated its 60th anniversary in 2003?",
+            "Which disease devastated livestock across the UK during 2001?",
+            "Which country is not an island?",
+            "What are you said to do to a habit when you break it?",
+            "What might an electrician lay?",
+            "Which word follows 'North' and 'South' to give the names of two continents?",
+            "Which is not the name of an English county?",
+            "Which of these means adequate space for moving in?",
+            "How is a play on words commonly described?",
+            "Which of these is a fashionable district of London?",
+            "Which colour is used as a term to describe an illegal market in rare goods?",
+            "Which character was first played by Arnold Schwarzenegger in a 1984 film?",
+            "What name is given to the person who traditionally attends the groom on his wedding day?",
+            "Which of these would a film actor like to receive?",
+            "In which country would you expect to be greeted with the word 'bonjour'?",
     };
 
 
-    /*
-     public String Questions[]={
-             "Q1",
-             "Q2"
-     ,"Q3"
-      ,"Q4"
-      ,"Q5"
-      ,"Q6"
-     , "Q7"
-     , "Q8"
-     , "Q9"
-     , "Q10"
-     , "Q11"
-     , "012"
-     , "Q13"
-     , "Q14"
-     , "Q15"
-     };
-     */
     //public String Questions[];
     public String Choices[][] = {
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"},
-            {"1", "2", "3", "4"}
+            {"Venice", "London", "Berlin", "Cannes"},
+            {"Hand-and-foot", "Foot-and-mouth", "Hand-to-mouth", "Foot-in-mouth"},
+            {"Madagascar", "Cuba", "Germany", "Jamaica"},
+            {"Throw it", "Punch it", "Eat it", "Kick it"},
+            {"Cables", "Stables", "Gables", "Tables"},
+            {"Africa", "America", "Asia", "Australia"},
+            {"Lancashire", "Leicestershire", "Liverpoolshire", "Lincolnshire"},
+            {"Knee lounge", "Ear hole", "Foot rest", "Elbow room"},
+            {"Pun", "Pen", "Pin", "Pan"},
+            {"Bulgaria", "Belgravia", "Belgrade", "Belgium"},
+            {"Blue", "Red", "Black", "White"},
+            {"The Demonstrator", "The Instigator", "The Investigator", "The Terminator"},
+            {"Best man", "Top  man", "Old man", "Poor man"},
+            {"Oliver", "Oscar", "Oliphant", "Osbert"},
+            {"Italy", "Spain", "France", "Wales"}
     };
 
     public String CorrectAnswers[] = {
-            "1",
-            "2",
-            "3",
-            "4",
-            "1",
-            "2",
-            "3",
-            "4",
-            "1",
-            "2",
-            "3",
-            "4",
-            "1",
-            "2",
-            "3"
+            "Venice",
+            "Foot-and-mouth",
+            "Germany",
+            "Kick it",
+            "Cables",
+            "America",
+            "Liverpoolshire",
+            "Elbow room",
+            "Pun",
+            "Belgravia",
+            "Black",
+            "The Investigator",
+            "Best man",
+            "Oscar",
+            "France"
     };
 
     public String[] getQuestion() {
@@ -119,14 +106,178 @@ public class QuestionData {
         }
     }
 
-    public void setQuestion(String data[]) {
-        Questions = data;
+    public void setQuestion(String data) {
+        String[] parts=data.split("\r\n");
+        for (int i = 0; i < parts.length; i++) {
+            Questions[i] = parts[i];
+        }
+    }
+    public void Question() {
+        String database_url = "https://leungwaikin.000webhostapp.com/database.php";
+        String[] data = new String[15];
+        String[] testQ = {"10", "20", "30", "40", "50", "60", "70", "80", "90", "100", "110", "120", "130", "140", "150"};
+
     }
 
-    public String[] doInBackground() {
+
+    public class Database extends AsyncTask<String, Void, String> {
+
+        //AlertDialog alertDialog;
+        Context context;
+
+        Database(Context ctx) {
+            context = ctx;
+        }
+        protected String doInBackground(String... params) {
+
+            String database_url = "https://leungwaikin.000webhostapp.com/database.php";
+
+            try {
+                URL url = new URL(database_url);
+                String username = "lo";
+                System.out.print(username);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                result = result.replace("connection success", "");
+                System.out.println(result);
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            setQuestion(result);
+            super.onPostExecute(result);
+
+            //QuestionData qa=new QuestionData();
+            //String[] parts = result.split("\r\n");
+            //qa.setQuestion(parts);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+    }
+
+
+    }
+        //return null;
+
+
+
+ /*   public void Question() {
         String database_url = "https://leungwaikin.000webhostapp.com/database.php";
-        int i = 0;
-        String data[] = null;
+        String[] data = new String[15];
+        String[] testQ = {"10", "20", "30", "40", "50", "60", "70", "80", "90", "100", "110", "120", "130", "140", "150"};
+        int a = 0;
+
+        try {
+            URL url = new URL(database_url);
+            String username = "Lo";
+            System.out.print(username);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            String post_data =  URLEncoder.encode(username, "UTF-8");
+            bufferedWriter.write(post_data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            result = result.replace("connection success", "");
+            System.out.println(result);
+            //String[] parts = result.split("\r\n");
+            //System.out.println(parts[0]);
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            //return parts;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //return null;
+
+
+    }
+*/
+
+
+/*
+        try {
+            URL url = new URL(database_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            result = result.replace("connection success", "");
+            System.out.println(result);
+            parts = result.split("\r\n");
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
+}
+*/
 //leungwaikin.000webhostapp.com
         /*
         try {
@@ -148,30 +299,39 @@ public class QuestionData {
         }
         return  data;
         */
+/*
         try {
             URL url = new URL(database_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
             String inputLine;
-            while ((inputLine = in.readLine()) != null){
-                inputLine=inputLine.replace("connection success","");
-                String[] tokens = inputLine.split("\r\n");
-                for(String token:tokens){
-                    data[i]=token;
-                    i++;}
+            while ((inputLine = in.readLine()) != null) {
+                inputLine = inputLine.replace("connection success", "");
             }
+                String[] tokens = inputLine.split("\r\n");
+            System.out.println(inputLine);
+                for(String token:tokens){
+                    data[a]=token;
+                    a++;}
+
             in.close();
+            inputStream.close();
+        httpURLConnection.disconnect();
+
         }
 
         catch(Exception e){
             // handle errors here...
         }
 
-
-        return data;
-
-
     }
+
 }
+*/
     /*SQL
     public void setQuestion(){
 

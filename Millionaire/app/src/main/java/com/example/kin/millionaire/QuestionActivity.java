@@ -55,7 +55,7 @@ public class QuestionActivity extends AppCompatActivity {
     private boolean helper3Used = false;
     public String type;
     public String[] testQ={"10", "20", "30", "40", "50", "60", "70", "80", "90", "100", "110", "120", "130", "140", "150"};
-    
+    public String[] questions= new String[15];
 
     private long defaultTime = 35000;
     private long timeRemain;
@@ -69,7 +69,12 @@ public class QuestionActivity extends AppCompatActivity {
         name = bundle.getString("username");
         //database
         //to-do-database
-        //questionData.setQuestion(questionData.doInBackground());
+
+        QuestionData.Database db = questionData.new Database(QuestionActivity.this);
+        db.execute("lo");
+
+
+        //questionData.setQuestion(testQ);//(questionData.doInBackground());
 
 
 
